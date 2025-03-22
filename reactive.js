@@ -1,9 +1,13 @@
+const Info = {
+	Set: "update",
+	Last: "current",
+	Processed: "output",
+	Setter: "update",
+	Getter: "output",
+	LastSet: "current",
+}
+
 class ReactiveContaier {
-	static translate = {
-		"set": "update",
-		"last": "current",
-		"processed": "output",
-	};
 	constructor(defaultValue, onChange) {
 		this.reactive = (newValue) => {
 			this._curr = newValue;
@@ -14,8 +18,9 @@ class ReactiveContaier {
 	update(newValue) { return this.reactive(newValue); }
 	output() { return this._output; }
 	current() { return this._curr; };
+
 	getInfo(...tags) {
-		return tags.map(t=>(this[t]??this[ReactiveContaier.translate[t]]).bind(this));
+		return tags.map(t=>(this[t]).bind(this));
 	}
 }
 
