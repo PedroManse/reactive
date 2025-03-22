@@ -3,7 +3,7 @@ window.addEventListener("load", ()=>{
 		0,
 		$("#pointCounter"),
 		point=>cE("p", `Points: ${point}`),
-	).getInfo("set", "last");
+	).getInfo(Info.Setter, Info.LastSet);
 
 	$("#btn").addEventListener("click", ()=>{
 		setPoint(getPoint()+1);
