@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <html>
-	<script src="../createElement.js"></script>
-	<script src="../reactive.js"></script>
-	<script src="script.js"></script>
+	<script type="importmap">
+		{
+			"imports": {
+				"createElement": "/dist/createElement.js",
+				"reactive": "/dist/reactive.js"
+			}
+		}
+	</script>
+
+	<script type="module" src="/dist/user-event-example/script.js"></script>
 	<body>
 		<div id="pointCounter"> <p>Points: 0</p> </div>
 		<button id="btn">+</button>
