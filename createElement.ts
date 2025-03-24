@@ -62,5 +62,3 @@ export function reactEl(
 	return el;
 }
 
-export const JSX = {};
-
