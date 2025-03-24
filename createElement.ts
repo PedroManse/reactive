@@ -39,7 +39,7 @@ export default function El(
 export function reactEl(
 	name: string,
 	attrs: { [key: string]: any } | null = null,
-	...elements: (HTMLElement[] | string[])
+	...elements: (HTMLElement[] | { toString: () => string }[])
 ): HTMLElement {
 	const el = document.createElement(name);
 	for (const prop in attrs) {
@@ -56,7 +56,7 @@ export function reactEl(
 		if (child instanceof HTMLElement) {
 			el.appendChild(child);
 		} else {
-			el.innerHTML += child;
+			el.innerHTML += child.toString();
 		}
 	}
 	return el;
