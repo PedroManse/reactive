@@ -1,5 +1,5 @@
 {
-	pkgs ? import <nixpkgs> {},
+  pkgs ? import <nixpkgs> { },
 }:
 pkgs.mkShellNoCC {
   name = "dev-shell";
@@ -8,4 +8,3 @@ pkgs.mkShellNoCC {
     typescript
   ];
 }
-
