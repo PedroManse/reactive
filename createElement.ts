@@ -1,16 +1,16 @@
-export function $(q:string, doc:Document=document): HTMLElement {
+export function $(q: string, doc: Document = document): HTMLElement {
 	const f = doc.querySelector(q);
 	if (f) {
 		return f as HTMLElement;
 	}
 	throw new Error();
 }
-export const $$ = (qs:string, doc:Document=document) => Array.from(doc.querySelectorAll(qs))
+export const $$ = (qs: string, doc: Document = document) => Array.from(doc.querySelectorAll(qs))
 
 export default function El(
 	name: string,
-	elements: HTMLElement | HTMLElement[] | string=[],
-	attributes: {[key:string]: any} | null=null,
+	elements: HTMLElement | HTMLElement[] | string = [],
+	attributes: { [key: string]: any } | null = null,
 ) {
 	const el = document.createElement(name);
 	for (const prop in attributes) {
@@ -26,10 +26,10 @@ export default function El(
 	// array of elements
 	if (Array.isArray(elements)) {
 		el.append(...elements);
-	// raw HTML
+		// raw HTML
 	} else if (typeof elements === "string") {
 		el.innerHTML = elements;
-	// single element
+		// single element
 	} else if (elements instanceof HTMLElement) {
 		el.append(elements);
 	}
@@ -38,8 +38,8 @@ export default function El(
 
 export function reactEl(
 	name: string,
-	attrs: {[key: string]: any} | null=null,
-	...elements: (HTMLElement | string)[]
+	attrs: { [key: string]: any } | null = null,
+	...elements: (HTMLElement[] | string[])
 ): HTMLElement {
 	const el = document.createElement(name);
 	for (const prop in attrs) {
@@ -56,10 +56,11 @@ export function reactEl(
 		if (child instanceof HTMLElement) {
 			el.appendChild(child);
 		} else {
-			el.innerHTML = child;
-			break;
+			el.innerHTML += child;
 		}
 	}
 	return el;
-
 }
+
+export const JSX = {};
+
