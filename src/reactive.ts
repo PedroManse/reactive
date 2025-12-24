@@ -28,19 +28,22 @@ type MaybePromise<T> = T | Promise<T>;
 export function ReactiveElement<T>(
 	defaultValue: T,
 	container: HTMLElement,
-	onChange: (i: T) => MaybePromise<MaybeArray<HTMLElement>>,
+	onChange: (i: T, redraw: ()=>void) => MaybePromise<MaybeArray<HTMLElement>>,
 ): [(a:T)=>void, ()=>T] {
 	let activeReq: number | null = null;
 	const [set, _, get] = (new ReactiveContaier(defaultValue, (c) => {
-		if (activeReq) cancelAnimationFrame(activeReq);
+		function draw() {
+			activeReq = window.requestAnimationFrame(async (_) => {
+				const html = [await onChange(c, draw)].flat();
+				while (container.lastElementChild)
+					container.removeChild(container.lastElementChild);
+				container.append(...html);
+				activeReq = null;
+			});
+		}
 
-		activeReq = window.requestAnimationFrame(async (_) => {
-			const html = [await onChange(c)].flat();
-			while (container.lastElementChild)
-				container.removeChild(container.lastElementChild);
-			container.append(...html);
-			activeReq = null;
-		});
+		if (activeReq) cancelAnimationFrame(activeReq);
+		draw();
 	})).getInfo();
 	return [set, get];
 }
